@@ -1,15 +1,16 @@
 #!/bin/bash
 
 find_files() {
-  for file in "$1"/*; do
-    if [[ -f "$file" && "$file" == *.gif ]]; then
-      echo "$(basename "${file%.*}")"
-    elif [[ -d "$file" ]]; then
-      find_files "$file"
-    fi
-  done
-}
+	  for file in "$1"/*; do
+		      if [[ -f "$file" && "$file" == *.gif ]]; then
+			            file_name=$(echo "$file" | rev | cut -f 2- -d '.' | rev)
+				          echo "$file_name"
+					      elif [[ -d "$file" ]]; then
+						            find_files "$file"
+							        fi
+								  done
+							  }
 
-find_files "." | LC_COLLATE=C sort -f
-echo
+						  find_files "." | LC_COLLATE=C sort -f
+						  echo
 
