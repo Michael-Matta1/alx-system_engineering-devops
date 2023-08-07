@@ -1,7 +1,23 @@
 #!/bin/bash
 
-find . -type f -name "*.gif" | sed 's/\.gif$//' | sort -f | while IFS= read -r line; do
-    echo "$line"
-done
-echo
+# Function to list gif files recursively
+list_gifs_recursive() {
+	    for file in "$1"/*; do
+		            if [ -f "$file" ] && [[ "$file" == *.gif ]]; then
+				                filename=$(basename "$file" .gif)
+						            echo "$filename"
+							            elif [ -d "$file" ]; then
+									                list_gifs_recursive "$file"
+											        fi
+												    done
+											    }
+
+										    # Call the function starting from the current directory
+										    list_gifs_recursive "."
+
+										    # Sort the output case-insensitively
+										    sort -f
+
+										    # Add a newline at the end
+										    echo
 
